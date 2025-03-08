@@ -1,0 +1,39 @@
+class Solution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        """
+        Do not return anything, modify head in-place instead.
+        """
+
+        # Get to the mid, reverse th elist ahead and pick up elements from it alterantely 
+        slow = head 
+        fast = head 
+        if head is None:
+            return None 
+        while(fast is not None and fast.next is not None):
+            slow = slow.next 
+            fast = fast.next.next 
+
+
+        def reverseList(head):
+            if not head or not head.next:
+                return head 
+            newHead = reverseList(head.next)
+            head.next.next = head
+            head.next = None  
+            return newHead
+        
+        newHead = reverseList(slow)
+       
+      
+        #newHead at other end 
+
+        curr = head 
+        temp = newHead
+        while curr.next != temp and curr!=temp:
+            fwd_next = curr.next
+            bwd_next = temp.next 
+            curr.next = temp 
+            temp.next = fwd_next 
+
+            curr = fwd_next 
+            temp = bwd_next 
